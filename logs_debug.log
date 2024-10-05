@@ -1,0 +1,36 @@
+2024-10-05 16:52:39 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/stream_live/forvard/chunklist_w1372575101.m3u8
+2024-10-05 16:52:39 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_4.stream/chunklist_w1016824657.m3u8
+2024-10-05 16:52:39 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_1.stream/chunklist_w140306927.m3u8
+2024-10-05 16:52:39 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_2.stream/chunklist_w1876993438.m3u8
+2024-10-05 16:52:39 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_3.stream/chunklist_w579911134.m3u8
+2024-10-05 16:52:40 - root - DEBUG - Successfully loaded playlist from https://wowza-1.novo-sibirsk.ru/live/Frunze_Ippodromskaya_NTK.stream/chunklist_w450704269.m3u8
+2024-10-05 16:52:40 - root - DEBUG - Successfully loaded playlist from https://wowza-1.novo-sibirsk.ru/live/Pervomay_GerRev_NTK.stream/chunklist_w1856487845.m3u8
+2024-10-05 16:52:40 - root - DEBUG - Successfully loaded playlist from https://wowza-1.novo-sibirsk.ru/live/PlPimenova.stream/chunklist_w902750096.m3u8
+2024-10-05 16:52:43 - root - DEBUG - Frame saved at path: ./nsk/nsk_20241005_165240.jpg
+2024-10-05 16:52:47 - root - DEBUG - Frame saved at path: ./monument_4/monument_4_20241005_165243.jpg
+2024-10-05 16:52:51 - root - DEBUG - Frame saved at path: ./monument_1/monument_1_20241005_165247.jpg
+2024-10-05 16:52:56 - root - DEBUG - Frame saved at path: ./monument_2/monument_2_20241005_165251.jpg
+2024-10-05 16:53:01 - root - DEBUG - Frame saved at path: ./monument_3/monument_3_20241005_165256.jpg
+2024-10-05 16:53:05 - root - DEBUG - Frame saved at path: ./Frunze_Ippodromskaya_NTK/Frunze_Ippodromskaya_NTK_20241005_165301.jpg
+2024-10-05 16:53:10 - root - DEBUG - Frame saved at path: ./Pervomay_GerRev_NTK/Pervomay_GerRev_NTK_20241005_165305.jpg
+2024-10-05 16:53:14 - root - DEBUG - Frame saved at path: ./PlPimenova/PlPimenova_20241005_165310.jpg
+2024-10-05 16:53:14 - root - DEBUG - Execution completed in 35.94 seconds
+2024-10-05 16:53:14 - root - DEBUG - Waiting for 20 minutes before the next execution.
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_2.stream/chunklist_w1876993438.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_3.stream/chunklist_w579911134.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-1.novo-sibirsk.ru/live/PlPimenova.stream/chunklist_w902750096.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_1.stream/chunklist_w140306927.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-1.novo-sibirsk.ru/live/Pervomay_GerRev_NTK.stream/chunklist_w1856487845.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/stream_live/forvard/chunklist_w1372575101.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-1.novo-sibirsk.ru/live/Frunze_Ippodromskaya_NTK.stream/chunklist_w450704269.m3u8
+2024-10-05 17:03:31 - root - DEBUG - Successfully loaded playlist from https://wowza-2.novo-sibirsk.ru/live/monument_4.stream/chunklist_w1016824657.m3u8
+2024-10-05 17:03:36 - root - DEBUG - Frame saved at path: ./output\monument_2/monument_2_20241005_170331.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:03:40 - root - DEBUG - Frame saved at path: ./output\monument_3/monument_3_20241005_170336.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:03:44 - root - DEBUG - Frame saved at path: ./output\PlPimenova/PlPimenova_20241005_170340.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:03:49 - root - DEBUG - Frame saved at path: ./output\monument_1/monument_1_20241005_170344.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:03:55 - root - DEBUG - Frame saved at path: ./output\Pervomay_GerRev_NTK/Pervomay_GerRev_NTK_20241005_170349.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:03:58 - root - DEBUG - Frame saved at path: ./output\nsk/nsk_20241005_170355.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:04:02 - root - DEBUG - Frame saved at path: ./output\Frunze_Ippodromskaya_NTK/Frunze_Ippodromskaya_NTK_20241005_170358.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:04:06 - root - DEBUG - Frame saved at path: ./output\monument_4/monument_4_20241005_170402.jpg with quality=90 and scale_factor=0.5
+2024-10-05 17:04:06 - root - DEBUG - Execution completed in 36.53 seconds
+2024-10-05 17:04:06 - root - DEBUG - Waiting for 20 minutes before the next execution.
