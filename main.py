@@ -87,29 +87,30 @@ def process_playlist(playlist: List, output_dir: str):
     save_frame_from_video(video_url, save_path)
 
 
-def save_frame_from_video(url, save_path, scale_factor=0.5, quality=90):
-    cap = cv2.VideoCapture(url)
+def save_frame_from_video(url, save_path, scale_factor=0.5, quality=70):
+    try:
+        cap = cv2.VideoCapture(url)
 
-    if not cap.isOpened():
-        logging.error(f"Failed to open video from URL: {url}")
-        return
+        if not cap.isOpened():
+            logging.error(f"Failed to open video from URL: {url}")
+            return
 
-    # Читаем первый кадр
-    ret, frame = cap.read()
+        ret, frame = cap.read()
 
-    if ret:
-        # Уменьшаем размер изображения (например, вдвое)
-        new_width = int(frame.shape[1] * scale_factor)
-        new_height = int(frame.shape[0] * scale_factor)
-        resized_frame = cv2.resize(frame, (new_width, new_height), interpolation=cv2.INTER_AREA)
+        cap.release()
 
-        # Сохраняем изображение с указанием качества
-        cv2.imwrite(save_path, resized_frame, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
-        logging.debug(f"Frame saved at path: {save_path} with quality={quality} and scale_factor={scale_factor}")
-    else:
-        logging.error(f"Failed to read the frame from the video in {url}")
+        if ret:
+            new_width = int(frame.shape[1] * scale_factor)
+            new_height = int(frame.shape[0] * scale_factor)
+            resized_frame = cv2.resize(frame, (new_width, new_height), interpolation=cv2.INTER_AREA)
 
-    cap.release()
+            cv2.imwrite(save_path, resized_frame, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
+            logging.debug(f"Frame saved at path: {save_path} with quality={quality} and scale_factor={scale_factor}")
+        else:
+            logging.error("Failed to read the frame from the video")
+
+    except Exception as e:
+        logging.error(f"Error occurred: {str(e)}")
 
 
 def main(interval: int, output_dir: str):
@@ -124,7 +125,7 @@ def main(interval: int, output_dir: str):
         parts = load_chunks("chunks")
         cleaned_parts = list(filter(lambda x: x is not None, parts))
 
-        #print(cleaned_parts)
+        # print(cleaned_parts)
         for part in cleaned_parts:
             process_playlist(part, output_dir)
 
