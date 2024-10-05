@@ -22,8 +22,8 @@ def load_chunks(file: str) -> List:
         parts = list(map(lambda r: r.split("$"), urls))
 
     def process_part(part):
-        if len(part) != 3:
-            logging.error(f"Error: Content from {part} is not an m3u8 file")
+        if len(part) > 4:
+            logging.error(f"Error: {part} is incorrect. Skip.")
             return None
         part[1] = load_m3u8(part)
         return part if part[1] is not None else None
@@ -41,6 +41,10 @@ def load_chunks(file: str) -> List:
 
 def load_m3u8(chunk: List):
     url = chunk[0] + chunk[1]
+    if len(chunk) == 4:
+        logging.debug(f"{chunk} with token.")
+        url += chunk[2]
+
     try:
         response = requests.get(url, verify=False, timeout=10)
         if response.status_code != 200:
@@ -60,7 +64,10 @@ def load_m3u8(chunk: List):
 def process_playlist(playlist: List, output_dir: str):
     base = playlist[0]
     pl: M3U8 = playlist[1]
-    dir_name = playlist[2]
+    dir_name = playlist[3]
+    token = ""
+    if len(playlist) == 4:
+        token = playlist[2]
 
     full_output_dir = os.path.join(output_dir, dir_name)
 
@@ -100,19 +107,24 @@ def save_frame_from_video(url, save_path, scale_factor=0.5, quality=90):
         cv2.imwrite(save_path, resized_frame, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
         logging.debug(f"Frame saved at path: {save_path} with quality={quality} and scale_factor={scale_factor}")
     else:
-        logging.error("Failed to read the frame from the video")
+        logging.error(f"Failed to read the frame from the video in {url}")
 
     cap.release()
 
 
 def main(interval: int, output_dir: str):
+    logger = logging.getLogger()
+    # parts = load_chunks("chunks")
+    # cleaned_parts = list(filter(lambda x: x is not None, parts))
+    #
+    # print(cleaned_parts)
     while True:
-        logger = logging.getLogger()
         start_time = time.time()
 
         parts = load_chunks("chunks")
         cleaned_parts = list(filter(lambda x: x is not None, parts))
 
+        print(cleaned_parts)
         for part in cleaned_parts:
             process_playlist(part, output_dir)
 
