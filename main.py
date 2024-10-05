@@ -124,7 +124,7 @@ def main(interval: int, output_dir: str):
         parts = load_chunks("chunks")
         cleaned_parts = list(filter(lambda x: x is not None, parts))
 
-        print(cleaned_parts)
+        #print(cleaned_parts)
         for part in cleaned_parts:
             process_playlist(part, output_dir)
 
