@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import os
+import random
 import time
 
 import cv2
@@ -41,9 +42,6 @@ def load_chunks(file: str) -> List:
 
 def load_m3u8(chunk: List):
     url = chunk[0] + chunk[1]
-    if len(chunk) == 4:
-        logging.debug(f"{chunk} with token.")
-        url += chunk[2]
 
     try:
         response = requests.get(url, verify=False, timeout=10)
@@ -64,10 +62,7 @@ def load_m3u8(chunk: List):
 def process_playlist(playlist: List, output_dir: str):
     base = playlist[0]
     pl: M3U8 = playlist[1]
-    dir_name = playlist[3]
-    token = ""
-    if len(playlist) == 4:
-        token = playlist[2]
+    dir_name = playlist[2]
 
     full_output_dir = os.path.join(output_dir, dir_name)
 
@@ -81,13 +76,14 @@ def process_playlist(playlist: List, output_dir: str):
     last = pl.segments[-1]
     video_url = base + last.uri
 
+    rnd = random.randint(-100, 100)
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    save_path = f"{full_output_dir}/{dir_name}_{current_time}.jpg"
+    save_path = f"{full_output_dir}/{dir_name}_{current_time}_{rnd}.jpg"
 
     save_frame_from_video(video_url, save_path)
 
 
-def save_frame_from_video(url, save_path, scale_factor=0.5, quality=70):
+def save_frame_from_video(url, save_path):
     try:
         cap = cv2.VideoCapture(url)
 
@@ -100,12 +96,8 @@ def save_frame_from_video(url, save_path, scale_factor=0.5, quality=70):
         cap.release()
 
         if ret:
-            new_width = int(frame.shape[1] * scale_factor)
-            new_height = int(frame.shape[0] * scale_factor)
-            resized_frame = cv2.resize(frame, (new_width, new_height), interpolation=cv2.INTER_AREA)
-
-            cv2.imwrite(save_path, resized_frame, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
-            logging.debug(f"Frame saved at path: {save_path} with quality={quality} and scale_factor={scale_factor}")
+            cv2.imwrite(save_path, frame)
+            logging.debug(f"Frame saved at path: {save_path}")
         else:
             logging.error("Failed to read the frame from the video")
 
