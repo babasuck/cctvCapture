@@ -1,4 +1,6 @@
 logs*
 .venv
 .idea
-ouput
+output
+*.txt
+

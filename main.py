@@ -17,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def load_chunks(file: str) -> List:
+def load_chunks(file: str, output_dir: str) -> List:
     with open(file, "r") as f:
         urls = list(map(lambda r: r.replace("\n", ""), f.readlines()))
         parts = list(map(lambda r: r.split("$"), urls))
@@ -26,8 +26,16 @@ def load_chunks(file: str) -> List:
         if len(part) > 4:
             logging.error(f"Error: {part} is incorrect. Skip.")
             return None
-        part[1] = load_m3u8(part)
-        return part if part[1] is not None else None
+
+        # Загружаем плейлист
+        playlist = load_m3u8(part)
+        if playlist is None:
+            return None
+
+        # Сразу обрабатываем плейлист после его загрузки
+        process_playlist([part[0], playlist, part[2]], output_dir)
+
+        return part
 
     with ThreadPoolExecutor() as executor:
         future_to_part = {executor.submit(process_part, part): part for part in parts}
@@ -42,7 +50,6 @@ def load_chunks(file: str) -> List:
 
 def load_m3u8(chunk: List):
     url = chunk[0] + chunk[1]
-
     try:
         response = requests.get(url, verify=False, timeout=10)
         if response.status_code != 200:
@@ -52,6 +59,11 @@ def load_m3u8(chunk: List):
             logging.error(f"Error: Content from {url} is not an m3u8 file")
             return None
         playlist = m3u8.load(url, verify_ssl=False)
+        if playlist.playlists:
+            pl = playlist.playlists[-1]
+            url = chunk[0] + pl.uri
+            playlist = m3u8.load(url, verify_ssl=False)
+            logging.debug(f"Nested playlist found in {url}")
         logging.debug(f"Successfully loaded playlist from {url}")
         return playlist
     except (ValueError, IOError) as e:
@@ -107,19 +119,11 @@ def save_frame_from_video(url, save_path):
 
 def main(interval: int, output_dir: str):
     logger = logging.getLogger()
-    # parts = load_chunks("chunks")
-    # cleaned_parts = list(filter(lambda x: x is not None, parts))
-    #
-    # print(cleaned_parts)
     while True:
         start_time = time.time()
 
-        parts = load_chunks("chunks")
-        cleaned_parts = list(filter(lambda x: x is not None, parts))
-
-        # print(cleaned_parts)
-        for part in cleaned_parts:
-            process_playlist(part, output_dir)
+        # Загружаем и обрабатываем плейлисты с немедленным сохранением кадров
+        load_chunks("chunks", output_dir)
 
         execution_time = time.time() - start_time
         logger.debug(f"Execution completed in {execution_time:.2f} seconds")
